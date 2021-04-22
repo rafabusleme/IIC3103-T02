@@ -11,10 +11,12 @@
   "license": "MIT",
   "dependencies": {
     "body-parse": "^0.1.0",
+    "btoa": "^1.2.1",
     "express": "^4.17.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
