@@ -14,7 +14,7 @@ module.exports = {
       albumId: {
         type: Sequelize.STRING,
         references: {
-          model: "Albumes",
+          model: "Albums",
           key: "id",
         },
         onDelete: "CASCADE",

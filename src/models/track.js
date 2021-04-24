@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       duration: DataTypes.FLOAT,
       timesPlayed: DataTypes.INTEGER,
       albumId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         references: {
           model: "Album",
           key: "id",

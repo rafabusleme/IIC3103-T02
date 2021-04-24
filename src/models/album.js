@@ -3,7 +3,6 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Album extends Model {
     static associate(models) {
-      console.log(models);
       Album.belongsTo(models.Artist, {
         foreignKey: "artistId",
         onDelete: "CASCADE",
@@ -21,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       name: DataTypes.STRING,
-      genre: DataTypes.INTEGER,
+      genre: DataTypes.STRING,
       artistId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         references: {
           model: "Artist",
           key: "id",
