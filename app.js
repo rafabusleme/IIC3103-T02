@@ -1,17 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const db = require("./config/database");
+/* Routes */
+const artist = require("./src/routes/artist");
+const album = require("./src/routes/album");
+const track = require("./src/routes/track");
 
 const app = express();
 
-// Test db
-db.authenticate()
-  .then(() => console.log("Database connected"))
-  .catch((err) => console.log("Error: " + err));
+app.use(bodyParser.json());
+
+app.use("/artists", artist);
+app.use("/albums", album);
+app.use("/tracks", track);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("T02 - Taller de integración");
 });
 
 const PORT = process.env.PORT || 5000;
