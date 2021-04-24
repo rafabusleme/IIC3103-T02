@@ -1,10 +1,55 @@
 const btoa = require("btoa");
 
+const API_URL = process.env.DB_HOST || "localhost";
+
 const createId = (string) => {
   const encodedId = btoa(string).slice(0, 22);
   return encodedId;
 };
 
+const createUrl = (endpoint) => {
+  return `${API_URL}/${endpoint}`;
+};
+
+const createAlbumResponse = (album) => {
+  return {
+    id: album.id,
+    artist_id: album.artistId,
+    name: album.name,
+    genre: album.genre,
+    artist: createUrl(`artists/${album.artistId}/albums`),
+    tracks: createUrl(`albums/${album.id}/tracks`),
+    self: createUrl(`albums/${album.id}`),
+  };
+};
+
+const createTrackResponse = (track, artistId) => {
+  return {
+    id: track.id,
+    album_id: track.albumId,
+    name: track.name,
+    times_played: track.timesPlayed,
+    artist: createUrl(`artists/${artistId}`),
+    tracks: createUrl(`albums/${track.albumId}`),
+    self: createUrl(`tracks/${track.id}`),
+  };
+};
+
+const createArtistResponse = (artist) => {
+  console.log("ARTIST", artist);
+  return {
+    id: artist.id,
+    name: artist.name,
+    age: artist.age,
+    albums: createUrl(`artists/${artist.id}/albums`),
+    tracks: createUrl(`artists/${artist.id}/tracks`),
+    self: createUrl(`artists/${artist.id}`),
+  };
+};
+
 module.exports = {
   createId,
+  createArtistResponse,
+  createAlbumResponse,
+  createTrackResponse,
 };
