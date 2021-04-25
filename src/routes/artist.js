@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   try {
     const artistList = await db.Artist.findAll();
     const response = artistList.map((artist) => createArtistResponse(artist));
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error);
   }
@@ -86,7 +86,7 @@ router.post("/", async (req, res) => {
     const artist = await db.Artist.create({ id, name, age });
 
     const response = createArtistResponse(artist);
-    res.status(201).send(response);
+    res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {
       return res.status(409).send("artista ya existe");
@@ -105,7 +105,7 @@ router.post("/:artistId/albums", async (req, res) => {
     const album = await db.Album.create({ id, name, genre, artistId });
 
     const response = createAlbumResponse(album);
-    res.status(201).send(response);
+    res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {
       return res.status(409).send("álbum ya existe");
