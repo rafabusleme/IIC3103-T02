@@ -29,6 +29,7 @@ const createTrackResponse = (track, artistId) => {
     id: track.id,
     album_id: track.albumId,
     name: track.name,
+    duration: track.duration,
     times_played: track.timesPlayed,
     artist: createUrl(`artists/${artistId}`),
     tracks: createUrl(`albums/${track.albumId}`),
