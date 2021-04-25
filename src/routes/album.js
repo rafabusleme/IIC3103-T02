@@ -62,18 +62,17 @@ router.post("/:albumId/tracks", async (req, res) => {
 
     const timesPlayed = times_played || 0;
     const id = createId(`${name}:${albumId}`);
-    const track = await db.Track.create({
-      id,
-      name,
-      duration,
-      albumId,
-      timesPlayed,
+
+    const [track, created] = await db.Track.findOrCreate({
+      where: { id },
+      defaults: { name, duration, albumId, timesPlayed },
     });
 
     const album = await db.Album.findByPk(albumId);
     if (!album) return res.status(422).send("álbum no existe");
 
     const response = createTrackResponse(track, album.artistId);
+    if (!created) return res.status(409).json(response);
     res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {

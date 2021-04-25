@@ -83,9 +83,13 @@ router.post("/", async (req, res) => {
     if (typeof age != "number") return res.status(400).send("input inválido");
 
     const id = createId(name);
-    const artist = await db.Artist.create({ id, name, age });
+    const [artist, created] = await db.Artist.findOrCreate({
+      where: { id },
+      defaults: { name, age },
+    });
 
     const response = createArtistResponse(artist);
+    if (!created) return res.status(409).json(response);
     res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {
@@ -102,9 +106,13 @@ router.post("/:artistId/albums", async (req, res) => {
     if (!name || !genre) return res.status(400).send("input inválido");
 
     const id = createId(`${name}:${artistId}`);
-    const album = await db.Album.create({ id, name, genre, artistId });
+    const [album, created] = await db.Album.findOrCreate({
+      where: { id },
+      defaults: { name, genre, artistId },
+    });
 
     const response = createAlbumResponse(album);
+    if (!created) return res.status(409).json(response);
     res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {
