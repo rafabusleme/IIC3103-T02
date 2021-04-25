@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ silent: process.env.NODE_ENV === "production" });
 
 const config = {
   default: {
@@ -17,7 +17,6 @@ const config = {
     database: "tarea2_test",
   },
   production: {
-    // extend: "default",
     dialect: process.env.DB_DIALECT || "postgres",
     dialectOptions: {
       ssl: {

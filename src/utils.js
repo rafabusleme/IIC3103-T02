@@ -1,6 +1,7 @@
+require("dotenv").config({ silent: process.env.NODE_ENV === "production" });
 const btoa = require("btoa");
 
-const API_URL = process.env.DB_HOST || "localhost";
+const API_URL = process.env.BASE_URL || "localhost";
 
 const createId = (string) => {
   const encodedId = btoa(string).slice(0, 22);
