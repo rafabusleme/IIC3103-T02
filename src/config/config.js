@@ -6,7 +6,7 @@ const config = {
     password: process.env.DB_PASSWORD,
     dialect: process.env.DB_DIALECT || "postgres",
     database: process.env.DB_NAME,
-    host: process.env.DB_HOST || "localhost",
+    host: process.env.DB_HOST || "120.0.0.1",
   },
   development: {
     extend: "default",
@@ -17,7 +17,14 @@ const config = {
     database: "tarea2_test",
   },
   production: {
-    extend: "default",
+    // extend: "default",
+    dialect: process.env.DB_DIALECT || "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
     use_env_variable: "DATABASE_URL",
   },
 };
