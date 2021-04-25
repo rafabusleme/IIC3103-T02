@@ -14,8 +14,8 @@ const createUrl = (endpoint) => {
 
 const createAlbumResponse = (album) => {
   return {
-    id: album.id,
-    artist_id: album.artistId,
+    // id: album.id,
+    // artist_id: album.artistId,
     name: album.name,
     genre: album.genre,
     artist: createUrl(`artists/${album.artistId}/albums`),
@@ -26,8 +26,8 @@ const createAlbumResponse = (album) => {
 
 const createTrackResponse = (track, artistId) => {
   return {
-    id: track.id,
-    album_id: track.albumId,
+    // id: track.id,
+    // album_id: track.albumId,
     name: track.name,
     duration: track.duration,
     times_played: track.timesPlayed,
@@ -38,9 +38,8 @@ const createTrackResponse = (track, artistId) => {
 };
 
 const createArtistResponse = (artist) => {
-  console.log("ARTIST", artist);
   return {
-    id: artist.id,
+    // id: artist.id,
     name: artist.name,
     age: artist.age,
     albums: createUrl(`artists/${artist.id}/albums`),
