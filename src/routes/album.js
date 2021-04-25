@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     const albums = await db.Album.findAll();
 
     const response = albums.map((album) => createAlbumResponse(album));
-    res.send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error.name);
   }
@@ -29,7 +29,7 @@ router.get("/:albumId", async (req, res) => {
     if (!album) return res.status(404).send("álbum no encontrado");
 
     const response = createAlbumResponse(album);
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send("álbum no encontrado");
   }
@@ -47,7 +47,7 @@ router.get("/:albumId/tracks", async (req, res) => {
     const response = tracks.map((track) =>
       createTrackResponse(track, album.artistId)
     );
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error.name);
   }
@@ -74,7 +74,7 @@ router.post("/:albumId/tracks", async (req, res) => {
     if (!album) return res.status(422).send("álbum no existe");
 
     const response = createTrackResponse(track, album.artistId);
-    res.status(201).send(response);
+    res.status(201).json(response);
   } catch (error) {
     if (error.name == "SequelizeUniqueConstraintError") {
       return res.status(409).send("canción ya existe");

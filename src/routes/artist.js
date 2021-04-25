@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   try {
     const artistList = await db.Artist.findAll();
     const response = artistList.map((artist) => createArtistResponse(artist));
-    res.send(response);
+    res.json(response);
   } catch (error) {
     res.status(404).send(error);
   }
@@ -28,7 +28,7 @@ router.get("/:artistId", async (req, res) => {
     if (!artist) return res.status(404).send("artista no encontrado");
 
     const response = createArtistResponse(artist);
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send("artista no encontrado");
   }
@@ -44,7 +44,7 @@ router.get("/:artistId/albums", async (req, res) => {
     const albumes = await db.Album.findAll({ where: { artistId } });
 
     const response = albumes.map((album) => createAlbumResponse(album));
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error);
   }
@@ -69,7 +69,7 @@ router.get("/:artistId/tracks", async (req, res) => {
     const response = tracks.map((track) =>
       createTrackResponse(track, artistId)
     );
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error);
   }

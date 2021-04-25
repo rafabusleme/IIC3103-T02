@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
     const response = tracks.map((track) =>
       createTrackResponse(track, track.Album.artistId)
     );
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error);
   }
@@ -34,7 +34,7 @@ router.get("/:trackId", async (req, res) => {
     if (!album) return res.status(404).send("ocurrió un error");
 
     const response = createTrackResponse(track, album.artistId);
-    res.status(200).send(response);
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).send(error);
   }
