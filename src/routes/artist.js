@@ -132,15 +132,10 @@ router.put("/:artistId/albums/play", async (req, res) => {
     const artist = await db.Artist.findByPk(artistId);
     if (!artist) return res.status(404).send("artista no encontrado");
 
-    await db.Track.increment("timesPlayed", {
-      include: [
-        {
-          model: db.Album,
-          where: { artistId },
-        },
-      ],
-      where: {},
-    });
+    await db.sequelize.query(
+      `UPDATE "Tracks" AS "t" SET "timesPlayed" = "t"."timesPlayed" + 1 
+      FROM "Albums" AS "a" WHERE "t"."albumId" = "a"."id" AND "a"."artistId" = '${artistId}'`
+    );
 
     res.status(200).send("todas las canciones del artista fueron reproducidas");
   } catch (error) {
