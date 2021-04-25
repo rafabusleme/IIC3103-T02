@@ -32,7 +32,7 @@ const createTrackResponse = (track, artistId) => {
     duration: track.duration,
     times_played: track.timesPlayed,
     artist: createUrl(`artists/${artistId}`),
-    tracks: createUrl(`albums/${track.albumId}`),
+    album: createUrl(`albums/${track.albumId}`),
     self: createUrl(`tracks/${track.id}`),
   };
 };
